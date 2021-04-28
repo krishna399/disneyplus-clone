@@ -1,39 +1,83 @@
 import styled from 'styled-components'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { auth, provider } from '../firebase'
+import { useStateValue } from '../app/StateProvider';
+import { useHistory } from 'react-router-dom';
+import { UserActions } from '../app/Reducer'
 
 function Header(props) {
+    const history = useHistory();
+    const [{ name: userName, photo: userPhoto }, dispatch] = useStateValue();
+
+    useEffect(() => {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                setUser(user);
+                history.push("/home")
+            }
+        })
+    }, [userName]);
+
+    const handleAuthentication = () => {
+        auth.signInWithPopup(provider).then((result) => {
+            setUser(result.user);
+        })
+            .catch((error) => {
+                window.alert(error.message);
+            })
+    };
+
+    const setUser = (user) => {
+        dispatch({
+            type: UserActions.USER_LOGIN,
+            payload: {
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            }
+        });
+    };
+
     return (
         <HeaderNav>
             <HeaderLogo>
-                <img src="/images/logo.svg" />
+                <img src="/images/logo.svg" alt="logo" />
             </HeaderLogo>
-            <HeaderNavMenu>
-                <a href="/home">
-                    <img src="/images/home-icon.svg" />
-                    <span>HOME</span>
-                </a>
-                <a href="/home">
-                    <img src="/images/search-icon.svg" />
-                    <span>SEARCH</span>
-                </a>
-                <a href="/home">
-                    <img src="/images/watchlist-icon.svg" />
-                    <span>WATCHLIST</span>
-                </a>
-                <a href="/home">
-                    <img src="/images/original-icon.svg" />
-                    <span>ORIGINALS</span>
-                </a>
-                <a href="/home">
-                    <img src="/images/movie-icon.svg" />
-                    <span>MOVIES</span>
-                </a>
-                <a href="/home">
-                    <img src="/images/series-icon.svg" />
-                    <span>SERIES</span>
-                </a>
-            </HeaderNavMenu>
-            <Login>LOGIN</Login>
+
+            { !userName ? (
+                <Login onClick={handleAuthentication}>LOGIN</Login>)
+                : (<>
+                    <HeaderNavMenu>
+                        <a href="/home">
+                            <img src="/images/home-icon.svg" alt="Home" />
+                            <span>HOME</span>
+                        </a>
+                        <a href="/home">
+                            <img src="/images/search-icon.svg" alt="search" />
+                            <span>SEARCH</span>
+                        </a>
+                        <a href="/home">
+                            <img src="/images/watchlist-icon.svg" alt="watchlist" />
+                            <span>WATCHLIST</span>
+                        </a>
+                        <a href="/home">
+                            <img src="/images/original-icon.svg" alt="originals" />
+                            <span>ORIGINALS</span>
+                        </a>
+                        <a href="/home">
+                            <img src="/images/movie-icon.svg" alt="movies" />
+                            <span>MOVIES</span>
+                        </a>
+                        <a href="/home">
+                            <img src="/images/series-icon.svg" alt="series" />
+                            <span>SERIES</span>
+                        </a>
+                    </HeaderNavMenu>
+
+                    <UserImg src={userPhoto} alt={userName} />
+                </>
+                )}
+
         </HeaderNav>
     )
 }
@@ -146,6 +190,14 @@ transitions: all 0.2s ease 0s;
         color: #000;
         border-color: transparent;
     }
+`;
+
+const UserImg = styled.img`
+overflow: hidden;
+border-radius: 50%;
+height: 40px;
+position: relative;
+display: flex;
 `;
 
 
