@@ -1,9 +1,7 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { StateProvider } from './app/StateProvider';
-import { reducer, initialState } from './app/Reducer';
 
 ReactDOM.render(
   <StateProvider>

@@ -1,6 +1,5 @@
 
 import { StateAction } from "../types/appActions";
-import { MovieDetails } from "../types/MovieDetails";
 
 let MovieDetailsActions = {
     SET_MOVIE: "SET_MOVIE",
@@ -20,12 +19,12 @@ const movieDetailsReducer = (state = movieDetailsInitialState, action: StateActi
             return {
                 ...state,
                 recommend: action.payload.recommend,
-                newDisney: action.payload.recommend,
-                original: action.payload.recommend,
-                trending: action.payload.recommend,
+                newDisney: action.payload.newDisney,
+                original: action.payload.original,
+                trending: action.payload.trending,
 
-            }
-        };
+            };
+        }
         default:
             return state;
 

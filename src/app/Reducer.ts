@@ -1,5 +1,3 @@
-import { createContext } from "react";
-import { StateAction } from "../types/appActions";
 import { ApplicationState } from "../types/appState";
 import {
     userReducer,

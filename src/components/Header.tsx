@@ -213,7 +213,7 @@ transitions: all 0.2s ease 0s;
 const Dropdown = styled.div`
 position: absolute;
 top: 50px;
-bacground: rgb(19, 19 ,19);
+background: rgb(19, 19 ,19);
 border: 1px solid rgba(151, 151, 151, 0.34);
 border-radius: 4px;
 box-shadow: rgb(0 0 0/ 50%) 0px 0px 18px 0px;

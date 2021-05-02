@@ -1,6 +1,5 @@
 
 import { StateAction } from "../types/appActions";
-import { User } from "../types/User";
 
 let UserActions = {
     USER_LOGIN: "USER_LOGIN",
@@ -22,15 +21,15 @@ const userReducer = (state = userInitialState, action: StateAction) => {
                 name: action.payload.name,
                 mail: action.payload.email,
                 photo: action.payload.photo,
-            }
-        };
+            };
+        }
         case UserActions.USER_SIGNOUT: {
             return {
                 ...state,
                 name: '',
                 mail: '',
                 photo: '',
-            }
+            };
         }
         default:
             return state;

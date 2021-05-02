@@ -1,6 +1,6 @@
 export interface MovieDetails {
-    recommend: string | null,
-    newDisney: string | null,
-    original: string | null,
-    trending: string | null,
+    recommend: any[] | null,
+    newDisney: any[] | null,
+    original: any[] | null,
+    trending: any[] | null,
 }

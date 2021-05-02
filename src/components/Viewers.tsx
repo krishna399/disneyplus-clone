@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import ImgSlider from "./ImgSlider";
 
 const Viewers = (props: any) => {
     return (
@@ -59,7 +58,6 @@ box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
 cursor: pointer;
 overflow: hidden;
 position: relative;
-width: 250px;
 transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
 border: 3px solid rgba(249, 249, 249, 0.1);
 

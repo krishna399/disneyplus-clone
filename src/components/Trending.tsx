@@ -1,42 +1,34 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useStateValue } from '../app/StateProvider';
 
 function Trending(props: any) {
-    return (
+
+    const { state, dispatch } = useStateValue();
+
+    const trendingMovies = state.movieDetails.trending;
+    return (trendingMovies !== null) ? (
         <Container>
             <h4>Trending</h4>
             <Content>
-                <Wrap>
-                    <Link to="/">
-                        <img
-                            src="/images/viewers-pixar.png"
-                            alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to="/">
-                        <img
-                            src="/images/viewers-pixar.png"
-                            alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to="/">
-                        <img
-                            src="/images/viewers-pixar.png"
-                            alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to="/">
-                        <img
-                            src="/images/viewers-pixar.png"
-                            alt="" />
-                    </Link>
-                </Wrap>
+                {
+                    trendingMovies.map((movie: any, key: any) => {
+                        return (<Wrap key={key}>
+                            <Link to={"/detail/" + movie.id}>
+                                <img
+                                    src={movie.cardImg}
+                                    alt={movie.title} />
+                            </Link>
+                        </Wrap>);
+                    })
+                }
             </Content>
         </Container>
-    );
+    )
+        : (
+            <>
+            </>
+        );
 }
 
 const Container = styled.div`
@@ -56,7 +48,7 @@ grid-template-columns: repeat(4, minmax(0, 1fr));
 `;
 
 const Wrap = styled.div`
-padding-top: 30px;
+padding-top: 56.25%;
 border-radius: 10px;
 box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px, 
 rgb(0 0 0 / 73%) 0px 16px 10px -10px;
