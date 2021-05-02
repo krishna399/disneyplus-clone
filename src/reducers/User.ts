@@ -1,40 +1,45 @@
-const initialState = {
-    name: "",
-    email: "",
-    photo: "",
-};
+
+import { StateAction } from "../types/appActions";
+import { User } from "../types/User";
 
 let UserActions = {
     USER_LOGIN: "USER_LOGIN",
     USER_SIGNOUT: "USER_SIGNOUT",
 };
 
+const userInitialState = {
+    name: "",
+    mail: "",
+    photo: "",
+}
 
-const reducer = (state, action) => {
+const userReducer = (state = userInitialState, action: StateAction) => {
 
     switch (action.type) {
         case UserActions.USER_LOGIN: {
             return {
                 ...state,
                 name: action.payload.name,
-                email: action.payload.email,
+                mail: action.payload.email,
                 photo: action.payload.photo,
             }
         };
         case UserActions.USER_SIGNOUT: {
             return {
                 ...state,
-                name: null,
-                email: null,
-                photo: null,
+                name: '',
+                mail: '',
+                photo: '',
             }
         }
+        default:
+            return state;
 
     }
 };
 
 export {
-    initialState,
+    userInitialState,
+    userReducer,
     UserActions,
-    reducer,
-};
+}
