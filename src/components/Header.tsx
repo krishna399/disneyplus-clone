@@ -3,11 +3,12 @@ import React, { useEffect } from 'react'
 import { auth, provider } from '../firebase'
 import { useStateValue } from '../app/StateProvider';
 import { useHistory } from 'react-router-dom';
-import { UserActions } from '../app/Reducer'
+import { UserActions } from '../reducers/index'
 
-function Header(props) {
+function Header(props: any) {
     const history = useHistory();
-    const [{ name: userName, photo: userPhoto }, dispatch] = useStateValue();
+    const { state, dispatch } = useStateValue();
+    const { name: userName, photo: userPhoto } = state.user;
 
     useEffect(() => {
         auth.onAuthStateChanged(async (user) => {
@@ -19,15 +20,25 @@ function Header(props) {
     }, [userName]);
 
     const handleAuthentication = () => {
-        auth.signInWithPopup(provider).then((result) => {
-            setUser(result.user);
-        })
-            .catch((error) => {
+        if (!userName) {
+            auth.signInWithPopup(provider).then((result) => {
+                setUser(result.user);
+            }).catch((error) => {
                 window.alert(error.message);
-            })
+            });
+        } else {
+            auth.signOut().then(() => {
+                dispatch({
+                    type: UserActions.USER_SIGNOUT,
+                });
+                history.push('/');
+            }).catch((error) =>
+                console.log(error.message));
+        }
+
     };
 
-    const setUser = (user) => {
+    const setUser = (user: any) => {
         dispatch({
             type: UserActions.USER_LOGIN,
             payload: {
@@ -37,6 +48,7 @@ function Header(props) {
             }
         });
     };
+
 
     return (
         <HeaderNav>
@@ -73,8 +85,14 @@ function Header(props) {
                             <span>SERIES</span>
                         </a>
                     </HeaderNavMenu>
-
-                    <UserImg src={userPhoto} alt={userName} />
+                    <SignOut>
+                        <UserImg src={userPhoto} alt={userName} />
+                        <Dropdown>
+                            <span onClick={handleAuthentication}>
+                                Sign Out
+                            </span>
+                        </Dropdown>
+                    </SignOut>
                 </>
                 )}
 
@@ -192,13 +210,50 @@ transitions: all 0.2s ease 0s;
     }
 `;
 
+const Dropdown = styled.div`
+position: absolute;
+top: 50px;
+background: rgb(19, 19 ,19);
+border: 1px solid rgba(151, 151, 151, 0.34);
+border-radius: 4px;
+box-shadow: rgb(0 0 0/ 50%) 0px 0px 18px 0px;
+padding: 10px;
+font-size: 14px;
+letter-spacing: 1.5px;
+width: 100px;
+align-items:center;
+display: flex;
+justify-content: center;
+opacity: 0;
+`;
+
+const SignOut = styled.div`
+position: relative;
+display: flex:
+height: 48px;
+width: 48px;
+cursor: pointer;
+alig-items: center; /* to align items vertically */
+justify-content: center; /* to align items horizontally */
+
+    &:hover {
+        ${Dropdown} {
+            opacity: 1;
+            transition-duration: 0.8s;
+        }
+    }
+`;
+
 const UserImg = styled.img`
 overflow: hidden;
 border-radius: 50%;
-height: 40px;
+height: 100%;
+width: 100%;
 position: relative;
 display: flex;
 `;
+
+
 
 
 export default Header
