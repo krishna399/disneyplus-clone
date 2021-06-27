@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, { useEffect } from 'react'
 import { auth, provider } from '../firebase'
 import { useStateValue } from '../app/StateProvider';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { UserActions } from '../reducers/index'
 
 function Header(props: any) {
@@ -56,34 +56,34 @@ function Header(props: any) {
                 <img src="/images/logo.svg" alt="logo" />
             </HeaderLogo>
 
-            { !userName ? (
+            {!userName ? (
                 <Login onClick={handleAuthentication}>LOGIN</Login>)
                 : (<>
                     <HeaderNavMenu>
-                        <a href="/home">
+                        <Link to={"/home"}>
                             <img src="/images/home-icon.svg" alt="Home" />
                             <span>HOME</span>
-                        </a>
-                        <a href="/home">
+                        </Link>
+                        <Link to={"/home"}>
                             <img src="/images/search-icon.svg" alt="search" />
                             <span>SEARCH</span>
-                        </a>
-                        <a href="/home">
+                        </Link>
+                        <Link to={"/home"}>
                             <img src="/images/watchlist-icon.svg" alt="watchlist" />
                             <span>WATCHLIST</span>
-                        </a>
-                        <a href="/home">
+                        </Link>
+                        <Link to={"/home"}>
                             <img src="/images/original-icon.svg" alt="originals" />
                             <span>ORIGINALS</span>
-                        </a>
-                        <a href="/home">
+                        </Link>
+                        <Link to={"/home"}>
                             <img src="/images/movie-icon.svg" alt="movies" />
                             <span>MOVIES</span>
-                        </a>
-                        <a href="/home">
+                        </Link>
+                        <Link to={"/home"}>
                             <img src="/images/series-icon.svg" alt="series" />
                             <span>SERIES</span>
-                        </a>
+                        </Link>
                     </HeaderNavMenu>
                     <SignOut>
                         <UserImg src={userPhoto} alt={userName} />

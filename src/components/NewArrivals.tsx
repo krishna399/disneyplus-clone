@@ -4,7 +4,7 @@ import { useStateValue } from '../app/StateProvider';
 
 function NewArrivals(props: any) {
 
-    const { state, dispatch } = useStateValue();
+    const { state } = useStateValue();
 
     const newArrivalMovies = state.movieDetails.newDisney;
     return (newArrivalMovies !== null)

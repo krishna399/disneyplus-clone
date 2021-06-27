@@ -4,7 +4,7 @@ import { useStateValue } from '../app/StateProvider';
 
 function Trending(props: any) {
 
-    const { state, dispatch } = useStateValue();
+    const { state } = useStateValue();
 
     const trendingMovies = state.movieDetails.trending;
     return (trendingMovies !== null) ? (

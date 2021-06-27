@@ -4,7 +4,7 @@ import { useStateValue } from '../app/StateProvider';
 
 function Originals(props: any) {
 
-    const { state, dispatch } = useStateValue();
+    const { state } = useStateValue();
     const originalMovies = state.movieDetails.original;
     return (originalMovies !== null) ? (
         <Container>

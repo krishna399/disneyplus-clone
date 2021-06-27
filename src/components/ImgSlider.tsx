@@ -2,41 +2,42 @@ import styled from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
 
 
 function ImgSlider(props: any) {
-    let sliderSettings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-    };
-    return (
-        <Carousel {...sliderSettings}>
-            <Wrap>
-                <a>
-                    <img src="/images/slider-badging.jpg" alt="" />
-                </a>
-            </Wrap>
-            <Wrap>
-                <a>
-                    <img src="/images/slider-scale.jpg" alt="" />
-                </a>
-            </Wrap>
-            <Wrap>
-                <a>
-                    <img src="/images/slider-badag.jpg" alt="" />
-                </a>
-            </Wrap>
-            <Wrap>
-                <a>
-                    <img src="/images/slider-scales.jpg" alt="" />
-                </a>
-            </Wrap>
-        </Carousel>
-    );
+  let sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+  };
+  return (
+    <Carousel {...sliderSettings}>
+      <Wrap>
+        <Link to={"/home"}>
+          <img src="/images/slider-badging.jpg" alt="" />
+        </Link>
+      </Wrap>
+      <Wrap>
+        <Link to={"/home"}>
+          <img src="/images/slider-scale.jpg" alt="" />
+        </Link>
+      </Wrap>
+      <Wrap>
+        <Link to={"/home"}>
+          <img src="/images/slider-badag.jpg" alt="" />
+        </Link>
+      </Wrap>
+      <Wrap>
+        <Link to={"/home"}>
+          <img src="/images/slider-scales.jpg" alt="" />
+        </Link>
+      </Wrap>
+    </Carousel>
+  );
 }
 
 const Carousel = styled(Slider)`

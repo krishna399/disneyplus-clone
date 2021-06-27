@@ -4,7 +4,7 @@ import { useStateValue } from '../app/StateProvider';
 
 function Recommendations(props: any) {
 
-    const { state, dispatch } = useStateValue();
+    const { state } = useStateValue();
 
     const recommendedMovies = state.movieDetails.recommend;
     return (recommendedMovies !== null) ? (

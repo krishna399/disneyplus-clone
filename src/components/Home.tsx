@@ -17,13 +17,13 @@ function Home(props: any) {
 
     const { state, dispatch } = useStateValue();
     const userName = state.user.name;
-    let recommendsList: any[] = [];
-    let newDisneyList: any[] = [];
-    let originalsList: any[] = [];
-    let trendingList: any[] = [];
 
 
     useEffect(() => {
+        let recommendsList: any[] = [];
+        let newDisneyList: any[] = [];
+        let originalsList: any[] = [];
+        let trendingList: any[] = [];
         if (userName) {
 
             db.collection("Movies").onSnapshot((snapshot) => {
@@ -42,8 +42,8 @@ function Home(props: any) {
                             originalsList = [...originalsList, { id: doc.id, ...doc.data() }];
                             break;
                     }
-                })
-
+                });
+                /* eslint-disable-next-line */
                 setMovies(recommendsList, trendingList, newDisneyList, originalsList);
             });
         }
