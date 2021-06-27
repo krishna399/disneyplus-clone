@@ -47,6 +47,7 @@ function Home(props: any) {
                 setMovies(recommendsList, trendingList, newDisneyList, originalsList);
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userName]);
 
     const setMovies = (recommends: any[], trending: any[], newDisney: any[], original: any[]) => {
@@ -59,7 +60,7 @@ function Home(props: any) {
                 original: original,
             }
         })
-    }
+    };
     return (
         <Container>
             <ImgSlider />

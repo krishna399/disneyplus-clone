@@ -17,6 +17,7 @@ function Header(props: any) {
                 history.push("/home")
             }
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userName]);
 
     const handleAuthentication = () => {
